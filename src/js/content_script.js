@@ -88,3 +88,13 @@ function handleText(textNode) {
         textNode.nodeValue = v;
     }
 }
+
+function handleDOMModifications()  {
+    document.removeEventListener('DOMSubtreeModified', handleDOMModifications);
+    setTimeout(function(){
+        walk(document.body);
+        document.addEventListener('DOMSubtreeModified', handleDOMModifications, false);
+    }, 1000);
+}
+
+document.addEventListener('DOMSubtreeModified', handleDOMModifications, false);
